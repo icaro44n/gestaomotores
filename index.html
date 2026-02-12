@@ -36,7 +36,6 @@
             min-height: 100px;
         }
 
-        /* AJUSTE RESPONSIVO CRÍTICO */
         @media (min-width: 768px) {
             .kanban-column-body { 
                 max-height: 75vh; 
@@ -44,23 +43,17 @@
             }
         }
 
-        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
-        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 0.375rem; }
-
-        /* Animação Toast */
         @keyframes slideIn {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
         .toast-enter { animation: slideIn 0.3s ease-out forwards; }
 
-        /* Scroll personalizado para o modal */
         .modal-scroll::-webkit-scrollbar { width: 8px; }
         .modal-scroll::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
         .modal-scroll::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
         .modal-scroll::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
 
-        /* Ajustes para Impressão/PDF para evitar cortes */
         @media print {
             tr, td, th { page-break-inside: avoid !important; }
             .avoid-break { page-break-inside: avoid !important; }
@@ -70,121 +63,72 @@
 </head>
 <body class="antialiased text-gray-900">
 
-    <!-- Container para Toasts -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
 
-    <!-- 
-      === PÁGINA DE LOGIN (HEINEKEN BRANDED) ===
-    -->
+    <!-- PÁGINA DE LOGIN -->
     <div id="login-page" class="flex flex-col items-center justify-center min-h-screen px-4 bg-gray-50">
         <div class="bg-white p-8 md:p-10 rounded-xl shadow-2xl max-w-md w-full mb-6 border-t-4 border-green-600">
-            
             <div class="flex flex-col items-center justify-center mb-6">
-                <!-- ESTRELA VERMELHA HEINEKEN -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-20 h-20 text-red-600 mb-2 drop-shadow-sm">
                     <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                 </svg>
-                <!-- TÍTULO DA MARCA -->
                 <h2 class="text-2xl font-black text-gray-800 tracking-tighter uppercase">MANUTENÇÃO <span class="text-green-600">MOTORES</span></h2>
             </div>
-            
             <h3 id="form-title" class="text-lg font-medium text-center text-gray-500 mb-6">Acesso ao Sistema</h3>
-
             <form id="auth-form" class="space-y-5">
                 <div>
                     <label for="email" class="block text-sm font-bold text-gray-700 mb-1">Email Corporativo</label>
-                    <input type="email" id="email" name="email" required 
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-green-600 focus:border-green-600 transition-colors">
+                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-green-600 focus:border-green-600 transition-colors">
                 </div>
                 <div>
                     <label for="password" class="block text-sm font-bold text-gray-700 mb-1">Senha</label>
-                    <input type="password" id="password" name="password" required minlength="6"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-green-600 focus:border-green-600 transition-colors">
+                    <input type="password" id="password" name="password" required minlength="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-green-600 focus:border-green-600 transition-colors">
                 </div>
-
                 <p id="error-message" class="text-red-500 text-sm h-5 font-medium text-center"></p>
-
-                <button type="submit" id="submit-btn" 
-                        class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition-colors shadow-lg uppercase tracking-wide">
-                    Entrar
-                </button>
+                <button type="submit" id="submit-btn" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition-colors shadow-lg uppercase tracking-wide">Entrar</button>
             </form>
-
-            <p class="text-center text-sm text-gray-600 mt-6">
-                <a href="#" id="toggle-form-link" class="text-green-700 hover:underline font-medium">Não tem conta? Criar nova conta</a>
-            </p>
+            <p class="text-center text-sm text-gray-600 mt-6"><a href="#" id="toggle-form-link" class="text-green-700 hover:underline font-medium">Não tem conta? Criar nova conta</a></p>
         </div>
-
-        <!-- Créditos dos Desenvolvedores -->
         <div class="text-center">
             <p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2">Desenvolvido por</p>
-            <div class="flex justify-center items-center gap-4 text-xs text-gray-500">
-                <a href="https://www.linkedin.com/in/7icaaro" target="_blank" class="hover:text-green-700 hover:underline transition-colors flex items-center gap-1 font-black text-gray-700">
-                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    Icaro
-                </a>
+            <div class="flex justify-center items-center gap-4 text-xs text-gray-500 font-black">
+                <a href="https://www.linkedin.com/in/7icaaro" target="_blank" class="hover:text-green-700 hover:underline transition-colors">Icaro</a>
             </div>
-            <p class="text-[10px] text-gray-400 mt-2">&copy; Todos os direitos reservados.</p>
         </div>
     </div>
 
-    <!-- 
-      === APP PRINCIPAL (KANBAN) ===
-    -->
+    <!-- APP PRINCIPAL -->
     <div id="kanban-page" class="hidden h-screen flex flex-col">
-        <!-- Cabeçalho -->
         <header class="bg-green-700 text-white shadow-lg sticky top-0 z-40 flex-shrink-0">
             <div class="container mx-auto max-w-full px-4 md:px-8 py-4 flex flex-col gap-4">
-                
                 <div class="flex flex-col md:flex-row justify-between md:items-center gap-4">
-                    <!-- Logo e Título -->
                     <div class="flex items-center space-x-3">
-                        <!-- Estrela Vermelha pequena no header -->
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-red-600 bg-white rounded-full p-1 border-2 border-white">
                             <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                         </svg>
                         <div>
-                            <!-- Título Dinâmico -->
                             <h1 class="text-lg sm:text-2xl font-black uppercase tracking-tight">MANUTENÇÃO DE MOTORES</h1>
-                            <p class="text-xs text-green-100 font-medium tracking-wider uppercase">Controlo de Ativos</p>
+                            <p class="text-xs text-green-100 font-medium tracking-wider uppercase">Controle de Motores</p>
                         </div>
                     </div>
-                    
-                    <!-- Ações -->
                     <div class="flex flex-col md:flex-row items-center gap-3 w-full md:w-auto">
-                        
                         <div class="flex items-center space-x-3 w-full md:w-auto overflow-x-auto">
-                            <!-- Barra de Pesquisa -->
                             <div class="relative group min-w-[150px] flex-1 md:flex-none">
+                                <input type="text" id="search-input" placeholder="Pesquisar motor..." class="w-full pl-10 pr-4 py-2 rounded-lg bg-green-600 border border-green-500 text-white placeholder-green-200 focus:outline-none text-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-4 w-4 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                    <svg class="h-4 w-4 text-green-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                                 </div>
-                                <input type="text" id="search-input" placeholder="Pesquisar motor..." 
-                                       class="w-full pl-10 pr-4 py-2 rounded-lg bg-green-600 border border-green-500 text-white placeholder-green-200 focus:outline-none focus:ring-2 focus:ring-white text-sm">
                             </div>
-
-                            <!-- Botão Relatório -->
-                            <button id="open-report-btn" class="hidden flex items-center gap-2 px-3 py-2 bg-white text-green-800 text-xs font-bold rounded-lg hover:bg-green-50 transition-all shadow-sm whitespace-nowrap uppercase">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                Relatório
-                            </button>
-
-                            <button id="add-task-btn" class="bg-green-500 hover:bg-green-400 text-white px-4 py-2 rounded-lg font-bold transition-colors flex items-center justify-center gap-2 whitespace-nowrap text-xs md:text-sm uppercase shadow-sm">
-                                <span>+</span> Novo
-                            </button>
-                            
-                            <button id="logout-btn" class="bg-green-800 border border-green-600 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-red-600 hover:border-red-700 transition-colors">
-                                Sair
-                            </button>
+                            <button id="open-report-btn" class="hidden flex items-center gap-2 px-3 py-2 bg-white text-green-800 text-xs font-bold rounded-lg hover:bg-green-50 shadow-sm uppercase">Relatório</button>
+                            <button id="add-task-btn" class="bg-green-500 hover:bg-green-400 text-white px-4 py-2 rounded-lg font-bold text-xs md:text-sm uppercase shadow-sm">Novo</button>
+                            <button id="logout-btn" class="bg-green-800 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-red-600">Sair</button>
                         </div>
                     </div>
                 </div>
-
-                <!-- Admin Controls -->
                 <div id="admin-controls" class="hidden pt-2 border-t border-green-600 flex items-center gap-2">
                     <label for="header-sort-select" class="text-xs text-green-200 uppercase font-bold">Ordenar:</label>
-                    <select id="header-sort-select" class="bg-green-800 text-white text-xs border border-green-500 rounded px-2 py-1 outline-none">
-                        <option value="manual" selected>Manual (Arrastar)</option>
+                    <select id="header-sort-select" class="bg-green-800 text-white text-xs border border-green-500 rounded px-2 py-1">
+                        <option value="manual" selected>Manual</option>
                         <option value="createdAt">Data</option>
                         <option value="priority">Prioridade</option>
                     </select>
@@ -192,44 +136,34 @@
             </div>
         </header>
 
-        <!-- Barra Status -->
-        <div id="auth-status" class="py-1 px-6 bg-green-900 text-green-200 text-xs text-center sticky top-0 z-30 flex-shrink-0 font-mono">...</div>
+        <div id="auth-status" class="py-1 px-6 bg-green-900 text-green-200 text-xs text-center font-mono">...</div>
 
-        <!-- Kanban Board -->
         <main id="kanban-board" class="flex-1 overflow-x-hidden overflow-y-auto md:overflow-x-auto md:overflow-y-hidden bg-gray-50 p-4 md:p-6">
-            <div class="flex flex-col md:flex-row gap-6 h-auto md:h-full w-full md:min-w-[1000px] lg:min-w-0">
-                
-                <!-- Coluna 1: RETIRADO -->
-                <div class="kanban-column flex-1 flex flex-col w-full md:min-w-[280px] bg-white rounded-xl shadow-lg border border-gray-100">
+            <div class="flex flex-col md:flex-row gap-6 h-auto md:h-full w-full md:min-w-[1000px]">
+                <div class="kanban-column flex-1 flex flex-col bg-white rounded-xl shadow-lg border border-gray-100">
                     <div class="p-3 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
-                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-red-500 rounded-full"></span><h3 class="font-bold text-red-600 text-sm">RETIRADO DA FÁBRICA</h3></div>
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-red-500 rounded-full"></span><h3 class="font-bold text-red-600 text-sm uppercase">Retirado da Fábrica</h3></div>
                         <span id="count-col1" class="px-2 py-0.5 bg-gray-200 text-gray-600 rounded text-xs font-bold">0</span>
                     </div>
                     <div id="col-1-list" class="p-3 space-y-3 kanban-column-body flex-1" data-column-id="retirado"></div>
                 </div>
-
-                <!-- Coluna 2: EM REPARO -->
-                <div class="kanban-column flex-1 flex flex-col w-full md:min-w-[280px] bg-white rounded-xl shadow-lg border border-gray-100">
+                <div class="kanban-column flex-1 flex flex-col bg-white rounded-xl shadow-lg border border-gray-100">
                     <div class="p-3 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
-                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-yellow-500 rounded-full"></span><h3 class="font-bold text-yellow-600 text-sm">EM REPARO (OFICINA)</h3></div>
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-yellow-500 rounded-full"></span><h3 class="font-bold text-yellow-600 text-sm uppercase">Em Reparo</h3></div>
                         <span id="count-col2" class="px-2 py-0.5 bg-gray-200 text-gray-600 rounded text-xs font-bold">0</span>
                     </div>
                     <div id="col-2-list" class="p-3 space-y-3 kanban-column-body flex-1" data-column-id="reparo"></div>
                 </div>
-
-                <!-- Coluna 3: REPARADO -->
-                <div class="kanban-column flex-1 flex flex-col w-full md:min-w-[280px] bg-white rounded-xl shadow-lg border border-gray-100">
+                <div class="kanban-column flex-1 flex flex-col bg-white rounded-xl shadow-lg border border-gray-100">
                     <div class="p-3 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
-                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-green-500 rounded-full"></span><h3 class="font-bold text-green-600 text-sm">REPARADO / DISPONÍVEL</h3></div>
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-green-500 rounded-full"></span><h3 class="font-bold text-green-600 text-sm uppercase">Reparado / Disponível</h3></div>
                         <span id="count-col3" class="px-2 py-0.5 bg-gray-200 text-gray-600 rounded text-xs font-bold">0</span>
                     </div>
                     <div id="col-3-list" class="p-3 space-y-3 kanban-column-body flex-1" data-column-id="reparado"></div>
                 </div>
-
-                <!-- Coluna 4: SUCATA -->
-                <div class="kanban-column flex-1 flex flex-col w-full md:min-w-[280px] bg-white rounded-xl shadow-lg border border-gray-100">
+                <div class="kanban-column flex-1 flex flex-col bg-white rounded-xl shadow-lg border border-gray-100">
                     <div class="p-3 border-b border-gray-100 flex justify-between items-center bg-gray-50 rounded-t-xl">
-                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-gray-500 rounded-full"></span><h3 class="font-bold text-gray-600 text-sm">DESCARTE / SUCATA</h3></div>
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-gray-500 rounded-full"></span><h3 class="font-bold text-gray-600 text-sm uppercase">Descarte / Sucata</h3></div>
                         <span id="count-col4" class="px-2 py-0.5 bg-gray-200 text-gray-600 rounded text-xs font-bold">0</span>
                     </div>
                     <div id="col-4-list" class="p-3 space-y-3 kanban-column-body flex-1" data-column-id="descarte"></div>
@@ -237,262 +171,182 @@
             </div>
         </main>
     </div>
-    
-    <!-- Footer dos Direitos Autorais no Sistema -->
+
     <footer class="bg-gray-100 text-center py-2 border-t border-gray-200 text-[10px] text-gray-500 hidden" id="app-footer">
-        &copy; 2025 Desenvolvido por <a href="https://www.linkedin.com/in/7icaaro" target="_blank" class="font-bold text-gray-700 hover:text-green-700">Icaro</a>. Todos os direitos reservados.
+        &copy; 2025 Desenvolvido por <span class="font-black">Icaro</span>. Todos os direitos reservados.
     </footer>
 
-    <!-- 
-      === MODAL: RELATÓRIO ===
-    -->
+    <!-- MODAL RELATÓRIO -->
     <div id="report-modal" class="fixed inset-0 bg-gray-900/50 z-[100] backdrop-blur-sm overflow-y-auto hidden">
         <div id="report-content-container" class="min-h-screen md:min-h-0 md:my-10 max-w-6xl mx-auto bg-white shadow-2xl md:rounded-xl overflow-hidden flex flex-col">
             <div class="bg-green-800 text-white p-6 flex justify-between items-start">
-                <div>
-                    <h2 class="text-2xl font-bold uppercase tracking-wide">Relatório de Motores</h2>
-                    <p class="text-green-200 text-sm mt-1" id="report-date-generated">--</p>
-                </div>
+                <div><h2 class="text-2xl font-bold uppercase tracking-wide">Relatório de Motores</h2><p class="text-green-200 text-sm mt-1" id="report-date-generated">--</p></div>
                 <div class="flex gap-2">
-                    <button id="download-pdf-btn" class="flex items-center gap-2 px-4 py-2 bg-white text-green-800 rounded-lg text-sm font-bold transition-colors shadow-md hover:bg-green-50">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        BAIXAR RELATÓRIO (PDF)
-                    </button>
-                    <button id="close-report-btn" class="px-3 py-2 bg-transparent hover:bg-white/10 text-green-100 hover:text-white rounded-lg transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                    </button>
+                    <button id="download-pdf-btn" class="flex items-center gap-2 px-4 py-2 bg-white text-green-800 rounded-lg text-sm font-bold shadow-md hover:bg-green-50">BAIXAR PDF</button>
+                    <button id="close-report-btn" class="px-3 py-2 bg-transparent hover:bg-white/10 text-green-100 rounded-lg">✕</button>
                 </div>
             </div>
             <div class="p-8 bg-gray-50 space-y-8" id="report-printable-area">
-                <div id="print-header" class="hidden mb-6 pb-4 border-b-2 border-green-700 avoid-break">
-                    <div class="flex items-center gap-4 mb-2">
-                        <h1 class="text-3xl font-black text-gray-900 uppercase">HEINEKEN <span class="text-sm font-normal text-gray-500 normal-case ml-2">Controle de Motores</span></h1>
-                    </div>
-                    <p class="text-sm text-gray-500" id="print-date-label">Gerado automaticamente.</p>
+                <div id="print-header" class="hidden mb-6 pb-4 border-b-2 border-green-700">
+                    <h1 class="text-3xl font-black text-gray-900 uppercase">HEINEKEN <span class="text-sm font-normal text-gray-500 normal-case ml-2">Controle de Motores</span></h1>
                 </div>
                 <div class="avoid-break">
-                    <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 border-l-4 border-green-600 pl-3">Métricas Gerais</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="bg-white p-4 rounded border border-gray-200">
-                            <p class="text-xs text-gray-500 uppercase font-semibold">Total Registrados</p>
-                            <p class="text-2xl font-bold text-gray-800 mt-1" id="report-total-count">0</p>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-gray-200">
-                            <p class="text-xs text-red-600 uppercase font-semibold">Retirados (Fábrica)</p>
-                            <p class="text-2xl font-bold text-red-700 mt-1" id="report-removed-count">0</p>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-gray-200">
-                            <p class="text-xs text-yellow-600 uppercase font-semibold">Em Reparo (Externo)</p>
-                            <p class="text-2xl font-bold text-yellow-700 mt-1" id="report-repair-count">0</p>
-                        </div>
-                        <div class="bg-white p-4 rounded border border-gray-200">
-                            <p class="text-xs text-green-500 uppercase font-semibold">Disponíveis</p>
-                            <p class="text-2xl font-bold text-green-700 mt-1" id="report-done-count">0</p>
-                        </div>
+                    <h3 class="text-sm font-bold text-gray-500 uppercase mb-4 border-l-4 border-green-600 pl-3">Métricas Gerais</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="bg-white p-4 rounded border border-gray-200"><p class="text-xs text-gray-500 uppercase font-semibold">Total</p><p class="text-2xl font-bold text-gray-800 mt-1" id="report-total-count">0</p></div>
+                        <div class="bg-white p-4 rounded border border-gray-200"><p class="text-xs text-red-600 uppercase font-semibold">Retirados</p><p class="text-2xl font-bold text-red-700 mt-1" id="report-removed-count">0</p></div>
+                        <div class="bg-white p-4 rounded border border-gray-200"><p class="text-xs text-yellow-600 uppercase font-semibold">Em Reparo</p><p class="text-2xl font-bold text-yellow-700 mt-1" id="report-repair-count">0</p></div>
+                        <div class="bg-white p-4 rounded border border-gray-200"><p class="text-xs text-green-500 uppercase font-semibold">Disponíveis</p><p class="text-2xl font-bold text-green-700 mt-1" id="report-done-count">0</p></div>
                     </div>
-                </div>
-                <div class="avoid-break">
-                    <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 border-l-4 border-blue-600 pl-3">Por Área Solicitante</h3>
-                    <div class="bg-white p-6 rounded border border-gray-200" id="area-stats-container"></div>
                 </div>
                 <div>
-                    <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 border-l-4 border-gray-500 pl-3">Lista de Motores</h3>
-                    <div class="bg-white rounded border border-gray-200 overflow-hidden">
+                    <h3 class="text-sm font-bold text-gray-500 uppercase mb-4 border-l-4 border-gray-500 pl-3">Lista de Ativos</h3>
+                    <div class="bg-white rounded border border-gray-200 overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200 text-sm">
-                            <thead class="bg-gray-100">
+                            <thead class="bg-gray-100 text-left font-bold text-gray-700">
                                 <tr>
-                                    <th class="px-3 py-2 text-left font-bold text-gray-700 border-b">Data Saída</th>
-                                    <th class="px-3 py-2 text-left font-bold text-gray-700 border-b">Motor / Tag</th>
-                                    <th class="px-3 py-2 text-left font-bold text-gray-700 border-b">Área</th>
-                                    <th class="px-3 py-2 text-left font-bold text-gray-700 border-b">Fornecedor</th>
-                                    <th class="px-3 py-2 text-left font-bold text-gray-700 border-b">Prev. Volta</th>
-                                    <th class="px-3 py-2 text-center font-bold text-gray-700 border-b">Status</th>
+                                    <th class="px-3 py-2 border-b">Data Saída</th>
+                                    <th class="px-3 py-2 border-b">Motor / TAG</th>
+                                    <th class="px-3 py-2 border-b">Área / Setor</th>
+                                    <th class="px-3 py-2 border-b">Fornecedor</th>
+                                    <th class="px-3 py-2 border-b text-center">Status</th>
                                 </tr>
                             </thead>
                             <tbody id="report-table-body" class="divide-y divide-gray-100"></tbody>
                         </table>
                     </div>
                 </div>
-                <!-- Créditos no Relatório -->
-                <div class="text-right mt-8 pt-4 border-t border-gray-300">
-                    <p class="text-[10px] text-gray-400">Desenvolvido por <span class="font-bold">Icaro</span></p>
-                </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal de Tarefa -->
-    <div id="task-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 hidden">
-        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full transform scale-95 opacity-0 overflow-hidden flex flex-col max-h-[90vh] h-auto transition-all duration-300" id="task-modal-content">
+    <!-- MODAL TAREFA -->
+    <div id="task-modal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full flex flex-col max-h-[90vh] transition-all duration-300" id="task-modal-content">
             <form id="task-form" class="flex flex-col h-full overflow-hidden">
-                <!-- Cabeçalho -->
-                <div class="flex justify-between items-center px-6 py-4 border-b border-gray-100 bg-gray-50 flex-shrink-0">
-                    <h4 id="modal-title" class="text-lg font-bold text-gray-800">Registrar Motor</h4>
-                    <button type="button" id="close-modal-btn" class="text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-full p-1.5 transition-colors">✕</button>
+                <div class="flex justify-between items-center px-6 py-4 border-b border-gray-100 bg-gray-50">
+                    <h4 id="modal-title" class="text-lg font-bold text-gray-800 uppercase tracking-tighter">Registrar Motor</h4>
+                    <button type="button" id="close-modal-btn" class="text-gray-400 hover:text-gray-600 text-xl">✕</button>
                 </div>
                 
-                <!-- Corpo Scrollável -->
-                <div class="p-6 space-y-6 overflow-y-auto flex-1 modal-scroll">
-                    
-                    <div id="readonly-banner" class="hidden bg-blue-50 text-blue-700 px-4 py-3 rounded-lg text-sm border border-blue-100 flex items-center gap-3">
-                        <span>Modo de visualização. Apenas administradores podem editar.</span>
+                <div class="p-6 space-y-6 overflow-y-auto modal-scroll">
+                    <div id="readonly-banner" class="hidden bg-blue-50 text-blue-700 px-4 py-3 rounded-lg text-sm border border-blue-100">Visualização Apenas.</div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="md:col-span-2"><h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest border-b pb-1">Solicitante</h5></div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Nome Completo</label>
+                            <input type="text" id="solicitante-nome" class="w-full px-3 py-2 border rounded-lg text-sm" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Matrícula</label>
+                            <input type="text" id="solicitante-matricula" class="w-full px-3 py-2 border rounded-lg text-sm" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Área Principal</label>
+                            <select id="solicitante-area" class="w-full px-3 py-2 border rounded-lg bg-white text-sm" required>
+                                <option value="" disabled selected>Selecione...</option>
+                                <option value="Envase">Envase</option>
+                                <option value="Processos">Processos</option>
+                                <option value="Utilidades">Utilidades</option>
+                            </select>
+                        </div>
+                        <div id="subarea-container" class="hidden">
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Subárea / Linha</label>
+                            <select id="solicitante-subarea" class="w-full px-3 py-2 border border-blue-300 rounded-lg bg-blue-50 text-sm">
+                                <option value="" selected>Selecione...</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Email</label>
+                            <input type="email" id="solicitante-email" class="w-full px-3 py-2 border rounded-lg bg-gray-50 text-gray-500 text-sm" readonly required>
+                        </div>
                     </div>
 
-                    <!-- Seção Solicitante -->
-                    <div>
-                        <h5 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Solicitante</h5>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t">
+                        <div class="md:col-span-2"><h5 class="text-xs font-bold text-green-700 uppercase tracking-widest border-b pb-1">Dados Técnicos</h5></div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Descrição do Motor</label>
+                            <input type="text" id="motor-descricao" placeholder="Ex: Bomba de Água Brassagem" class="w-full px-3 py-2 border rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">TAG / Patrimônio</label>
+                            <input type="text" id="motor-tag" class="w-full px-3 py-2 border rounded-lg text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-600 mb-1">Potência / Voltagem</label>
+                            <input type="text" id="motor-potencia" class="w-full px-3 py-2 border rounded-lg text-sm">
+                        </div>
+                        <div class="md:col-span-2 bg-blue-50 p-3 rounded-lg border border-blue-200 grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 mb-1">Nome Completo</label>
-                                <input type="text" id="solicitante-nome" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-sm" required>
+                                <label class="block text-[10px] font-bold text-blue-700 uppercase">Fornecedor / Oficina</label>
+                                <input type="text" id="motor-fornecedor" class="w-full px-2 py-1.5 border rounded bg-white text-sm">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 mb-1">Matrícula</label>
-                                <input type="text" id="solicitante-matricula" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-sm" required>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-600 mb-1">Área / Setor</label>
-                                <select id="solicitante-area" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-green-500 text-sm" required>
-                                    <option value="" disabled selected>Selecione...</option>
-                                    <option value="Envase">Envase</option>
-                                    <option value="Processos">Processos</option>
-                                    <option value="Utilidades">Utilidades</option>
-                                    <option value="Manutencao">Manutenção</option>
-                                    <option value="Logistica">Logística</option>
-                                    <option value="Tpm">Tpm</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-600 mb-1">Email</label>
-                                <input type="email" id="solicitante-email" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-500 text-sm" readonly required>
+                                <label class="block text-[10px] font-bold text-blue-700 uppercase">Previsão Volta</label>
+                                <input type="date" id="motor-data-prevista" class="w-full px-2 py-1.5 border rounded bg-white text-sm">
                             </div>
                         </div>
                     </div>
 
-                    <!-- CAMPOS MOTORES -->
-                    <div>
-                        <h5 class="text-xs font-bold text-blue-500 uppercase tracking-wider mb-3 pt-2 border-t border-gray-100">Dados do Motor</h5>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="md:col-span-2">
-                                <label class="block text-xs font-semibold text-gray-600 mb-1">Descrição do Motor</label>
-                                <input type="text" id="motor-descricao" placeholder="Ex: Motor Bomba Submersa 5CV" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-600 mb-1">TAG / Patrimônio</label>
-                                <input type="text" id="motor-tag" placeholder="Ex: M-1023" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-semibold text-gray-600 mb-1">Potência / Voltagem</label>
-                                <input type="text" id="motor-potencia" placeholder="Ex: 5CV - 220V" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm">
-                            </div>
-                            
-                            <!-- Campos Específicos para Manutenção Externa -->
-                            <div class="md:col-span-2 bg-blue-50 p-3 rounded-lg border border-blue-200 mt-2">
-                                <p class="text-[10px] uppercase font-bold text-blue-700 mb-2">Dados de Envio para Reparo (Obrigatório se status 'Em Reparo')</p>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div>
-                                        <label class="block text-xs font-semibold text-gray-600 mb-1">Fornecedor / Oficina</label>
-                                        <input type="text" id="motor-fornecedor" placeholder="Nome da empresa" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs font-semibold text-gray-600 mb-1">Previsão de Volta</label>
-                                        <input type="date" id="motor-data-prevista" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm">
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="pt-4">
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Defeito Observado / Obs Adicionais</label>
+                        <textarea id="motor-obs" rows="2" class="w-full px-3 py-2 border rounded-lg text-sm mb-3"></textarea>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Link da Foto (Opcional)</label>
+                        <input type="url" id="peca-foto-url" placeholder="https://..." class="w-full px-3 py-2 border rounded-lg text-sm">
+                        <div id="image-preview-container" class="hidden mt-3 p-2 border rounded-lg bg-white text-center">
+                            <img id="modal-image-preview" src="" class="mx-auto max-h-40 object-contain">
                         </div>
                     </div>
 
-                    <!-- OBSERVAÇÕES / FOTO -->
-                    <div class="md:col-span-2 bg-yellow-50 p-4 rounded-lg border border-yellow-200 mt-2">
-                        <p class="text-xs font-bold text-yellow-700 mb-3 uppercase flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                            Validação Obrigatória
-                        </p>
-                        
-                        <div class="space-y-3">
+                    <fieldset id="admin-fields" class="hidden border border-indigo-100 rounded-lg p-4 bg-indigo-50/30">
+                        <legend class="text-xs font-bold text-indigo-600 px-2 uppercase tracking-tight">Painel de Gestão</legend>
+                        <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-600 mb-1">Detalhes do Defeito / Observações</label>
-                                <textarea id="motor-obs" rows="2" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-sm" placeholder="Descreva o motivo da manutenção..."></textarea>
-                            </div>
-                            
-                            <div class="relative">
-                                <div class="flex items-center gap-2 mb-1">
-                                    <label class="block text-xs font-semibold text-gray-600">Link da Foto (URL)</label>
-                                </div>
-                                <input type="url" id="peca-foto-url" placeholder="Cole o link da imagem aqui (https://...)" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-sm mb-2">
-                                
-                                <div id="image-preview-container" class="hidden mb-3 p-2 bg-gray-50 border border-gray-200 rounded-lg text-center">
-                                    <p class="text-[10px] text-gray-400 mb-1">Pré-visualização:</p>
-                                    <img id="modal-image-preview" src="" alt="Erro ao carregar imagem" class="mx-auto max-h-48 rounded shadow-sm object-contain" onerror="this.style.display='none'">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Admin Panel -->
-                    <fieldset id="admin-fields" class="hidden border border-indigo-100 rounded-lg p-4 bg-indigo-50/30 mt-4">
-                        <legend class="text-xs font-bold text-indigo-600 px-2 uppercase tracking-wider">Gestão do Status</legend>
-                        
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-2">
-                            <div class="col-span-2 md:col-span-1">
-                                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Status Atual</label>
-                                <select id="admin-status" class="w-full px-2 py-1.5 border border-indigo-300 rounded bg-white text-sm font-bold text-indigo-700">
-                                    <option value="retirado">Retirado (Fábrica)</option>
-                                    <option value="reparo">Em Reparo (Fornecedor)</option>
+                                <label class="text-[10px] font-bold uppercase text-gray-500">Alterar Status</label>
+                                <select id="admin-status" class="w-full px-2 py-1.5 border border-indigo-300 rounded text-sm font-bold text-indigo-700 bg-white">
+                                    <option value="retirado">Retirado da Fábrica</option>
+                                    <option value="reparo">Em Reparo</option>
                                     <option value="reparado">Reparado / Disponível</option>
                                     <option value="descarte">Descarte / Sucata</option>
                                 </select>
                             </div>
-
                             <div>
-                                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Prioridade</label>
-                                <select id="admin-prioridade" class="w-full px-2 py-1.5 border border-gray-300 rounded bg-white text-sm">
+                                <label class="text-[10px] font-bold uppercase text-gray-500">Prioridade</label>
+                                <select id="admin-prioridade" class="w-full px-2 py-1.5 border border-gray-300 rounded text-sm bg-white">
                                     <option value="3">Baixa</option>
                                     <option value="2" selected>Média</option>
                                     <option value="1">Alta</option>
                                 </select>
                             </div>
                         </div>
-                        
-                        <div class="grid grid-cols-2 gap-3 mt-3">
-                            <div>
-                                <label class="block text-[10px] font-bold text-gray-500 uppercase mb-1">Ordem #</label>
-                                <input type="number" id="admin-order" class="w-full px-2 py-1.5 border border-indigo-200 rounded text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Auto">
-                            </div>
-                        </div>
                     </fieldset>
-
                     <input type="hidden" id="task-id-hidden">
-                    <p id="modal-error-message" class="text-red-500 text-sm h-5 font-medium"></p>
                 </div>
                 
-                <!-- Footer Fixo -->
-                <div class="flex justify-end items-center gap-3 p-4 bg-gray-50 border-t border-gray-100 flex-shrink-0">
-                    <button type="button" id="cancel-modal-btn" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-200 transition-colors font-medium text-sm">Cancelar</button>
-                    <button type="submit" id="save-task-btn" class="px-6 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 shadow-md font-bold text-sm">Confirmar</button>
+                <div class="flex justify-end items-center gap-3 p-4 bg-gray-50 border-t">
+                    <button type="button" id="cancel-modal-btn" class="px-4 py-2 text-gray-600 text-sm font-semibold">Cancelar</button>
+                    <button type="submit" id="save-task-btn" class="px-6 py-2 rounded-lg bg-green-600 text-white font-bold text-sm shadow-md hover:bg-green-700">Confirmar</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- Modal Delete -->
-    <div id="delete-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 hidden">
-        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full transform scale-95 opacity-0 transition-all duration-300" id="delete-modal-content">
-            <h4 class="text-lg font-bold text-center text-gray-800 mb-2">Excluir Registro?</h4>
-            <div class="flex justify-center gap-3 mt-4">
-                <button id="cancel-delete-btn" class="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 font-medium text-sm">Cancelar</button>
-                <button id="confirm-delete-btn" class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 font-medium text-sm">Excluir</button>
+    <div id="delete-modal" class="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full text-center">
+            <h4 class="text-lg font-bold mb-4">Confirmar Exclusão?</h4>
+            <div class="flex justify-center gap-4">
+                <button id="cancel-delete-btn" class="px-4 py-2 rounded bg-gray-100 font-semibold">Não</button>
+                <button id="confirm-delete-btn" class="px-4 py-2 rounded bg-red-600 text-white font-semibold">Sim, Excluir</button>
             </div>
         </div>
     </div>
 
-    <!-- Firebase -->
+    <!-- Script principal -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <!-- Adicionado Storage para Upload de Fotos -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -504,532 +358,308 @@
           projectId: "lojinic-99d2e",
           storageBucket: "lojinic-99d2e.firebasestorage.app",
           messagingSenderId: "170010365264",
-          appId: "1:170010365264:web:94e1b369cd38ab9ed2b055",
-          measurementId: "G-0WY10W9CLN"
+          appId: "1:170010365264:web:94e1b369cd38ab9ed2b055"
         };
 
         const app = firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.database();
-        const storage = firebase.storage();
         const appId = firebaseConfig.projectId;
 
-        // --- ESTADO ---
         let currentUser = null;
-        let userUid = null;
         let userRole = 'user';
         let dbTasksRef = null;
-        let taskToDeleteId = null;
         let allTasks = {};
-        let sortables = [];
         let currentSearchTerm = '';
-        let currentEditingPhotoUrl = '';
+        let sortables = [];
+
+        // --- DEFINIÇÃO DE SUBÁREAS ---
+        const subareasMap = {
+            'Envase': [
+                'Linha 01', 'Linha 02', 'Linha 03', 
+                'Linha 04 (Linha PET)', 'Linha 05 (Linha PET)', 
+                'Linha 08', 'Linha 09', 
+                'Linha 10 (Chopp)', 'Linha 12'
+            ],
+            'Processos': [
+                'Silos', 'Brassagem 01', 'Brassagem 02', 
+                'Filtração 01', 'Filtração 02', 
+                'Adega 01', 'Adega 02', 'Adega 03', 
+                'ETA', 'ETDI', 'Xaroparia', 'Horaps'
+            ],
+            'Utilidades': [] // Sem subáreas definidas por enquanto
+        };
 
         // --- ELEMENTOS DOM ---
-        const loginPage = document.getElementById('login-page');
-        const kanbanPage = document.getElementById('kanban-page');
-        const appFooter = document.getElementById('app-footer');
-        
-        // Login
-        const authForm = document.getElementById('auth-form');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const submitBtn = document.getElementById('submit-btn');
-        const toggleFormLink = document.getElementById('toggle-form-link');
-        const errorMessage = document.getElementById('error-message');
-        const formTitle = document.getElementById('form-title');
-        
-        // Kanban
-        const authStatus = document.getElementById('auth-status');
-        const logoutBtn = document.getElementById('logout-btn');
-        const addTaskBtn = document.getElementById('add-task-btn');
-        const adminControls = document.getElementById('admin-controls');
-        const headerSortSelect = document.getElementById('header-sort-select');
-        const searchInput = document.getElementById('search-input');
-        
-        // Relatório
-        const openReportBtn = document.getElementById('open-report-btn');
-        const reportModal = document.getElementById('report-modal');
-        const closeReportBtn = document.getElementById('close-report-btn');
-        const downloadPdfBtn = document.getElementById('download-pdf-btn');
-        const reportTableBody = document.getElementById('report-table-body');
-        const areaStatsContainer = document.getElementById('area-stats-container');
-        
-        // Modal Tarefa
-        const taskModal = document.getElementById('task-modal');
-        const taskModalContent = document.getElementById('task-modal-content');
-        const taskForm = document.getElementById('task-form');
-        const modalTitle = document.getElementById('modal-title');
-        const closeModalBtn = document.getElementById('close-modal-btn');
-        const cancelModalBtn = document.getElementById('cancel-modal-btn');
-        const saveTaskBtn = document.getElementById('save-task-btn');
-        const taskIdHidden = document.getElementById('task-id-hidden');
-        const modalErrorMessage = document.getElementById('modal-error-message');
-        const readonlyBanner = document.getElementById('readonly-banner');
+        const areaSelect = document.getElementById('solicitante-area');
+        const subareaContainer = document.getElementById('subarea-container');
+        const subareaSelect = document.getElementById('solicitante-subarea');
 
-        const motorObs = document.getElementById('motor-obs');
-        const pecaFotoUrl = document.getElementById('peca-foto-url');
-        const imagePreviewContainer = document.getElementById('image-preview-container');
-        const modalImagePreview = document.getElementById('modal-image-preview');
+        // Lógica de atualização de subáreas
+        areaSelect.addEventListener('change', () => {
+            const area = areaSelect.value;
+            const subs = subareasMap[area] || [];
+            
+            if (subs.length > 0) {
+                subareaContainer.classList.remove('hidden');
+                subareaSelect.innerHTML = '<option value="" selected>Selecione a linha/subárea...</option>';
+                subs.forEach(s => {
+                    const opt = document.createElement('option');
+                    opt.value = s;
+                    opt.textContent = s;
+                    subareaSelect.appendChild(opt);
+                });
+                subareaSelect.required = true;
+            } else {
+                subareaContainer.classList.add('hidden');
+                subareaSelect.innerHTML = '';
+                subareaSelect.required = false;
+            }
+        });
 
-        const solicitanteEmail = document.getElementById('solicitante-email');
-        const adminFields = document.getElementById('admin-fields');
-        const adminStatus = document.getElementById('admin-status');
-        
-        const deleteModal = document.getElementById('delete-modal');
-        const deleteModalContent = document.getElementById('delete-modal-content');
-        const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
-        const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
-
-        // --- FUNÇÕES UTILITÁRIAS ---
+        // UI Feedback
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-            let colors = type === 'success' ? 'bg-green-600' : 'bg-red-600';
-            toast.className = `${colors} text-white px-4 py-3 rounded shadow-lg flex items-center gap-3 toast-enter text-sm font-bold min-w-[280px]`;
-            toast.innerHTML = `<p>${message}</p>`;
+            toast.className = `${type === 'success' ? 'bg-green-600' : 'bg-red-600'} text-white px-4 py-2 rounded shadow-lg toast-enter text-sm font-bold`;
+            toast.textContent = message;
             container.appendChild(toast);
-            setTimeout(() => { toast.remove(); }, 3500);
+            setTimeout(() => toast.remove(), 3000);
         }
 
         // --- AUTH ---
-        let isLoginMode = true;
-        toggleFormLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            isLoginMode = !isLoginMode;
-            formTitle.textContent = isLoginMode ? 'Acesso ao Sistema' : 'Cadastro de Usuário';
-            submitBtn.textContent = isLoginMode ? 'Entrar' : 'Criar Conta';
-            toggleFormLink.textContent = isLoginMode ? 'Não tem conta? Criar nova conta' : 'Já tem conta? Entrar';
-        });
-
-        authForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = emailInput.value;
-            const password = passwordInput.value;
-            errorMessage.textContent = '';
-            submitBtn.disabled = true;
-            
-            const role = 'user'; // Default role
-
-            try {
-                if (isLoginMode) {
-                    await auth.signInWithEmailAndPassword(email, password);
-                } else {
-                    const cred = await auth.createUserWithEmailAndPassword(email, password);
-                    // Create user profile with role
-                    await db.ref(`/artifacts/${appId}/users/${cred.user.uid}`).set({ 
-                        email: cred.user.email, 
-                        role: role 
-                    });
-                }
-            } catch (error) {
-                // TRADUÇÃO DE ERROS FIREBASE
-                let msg = "Ocorreu um erro. Tente novamente.";
-                if (error.code === 'auth/email-already-in-use') {
-                    msg = "Este e-mail já está cadastrado. Por favor, faça login.";
-                } else if (error.code === 'auth/invalid-email') {
-                    msg = "Formato de e-mail inválido.";
-                } else if (error.code === 'auth/user-not-found') {
-                    msg = "Usuário não encontrado. Crie uma conta nova.";
-                } else if (error.code === 'auth/wrong-password') {
-                    msg = "Senha incorreta.";
-                } else if (error.code === 'auth/invalid-login-credentials') {
-                    msg = "E-mail ou senha incorretos (ou usuário não existe).";
-                } else if (error.code === 'auth/weak-password') {
-                    msg = "A senha deve ter pelo menos 6 caracteres.";
-                } else if (error.message) {
-                    msg = error.message;
-                }
-
-                errorMessage.textContent = msg;
-                submitBtn.disabled = false;
-            }
-        });
-
         auth.onAuthStateChanged(user => {
             if (user) {
                 currentUser = user;
-                userUid = user.uid;
-                loginPage.classList.add('hidden');
-                kanbanPage.classList.remove('hidden');
-                appFooter.classList.remove('hidden');
+                document.getElementById('login-page').classList.add('hidden');
+                document.getElementById('kanban-page').classList.remove('hidden');
+                document.getElementById('app-footer').classList.remove('hidden');
                 
-                const roleRef = db.ref(`/artifacts/${appId}/users/${userUid}/role`);
-                roleRef.on('value', snap => {
-                    userRole = (snap.exists() && snap.val() === 'admin') ? 'admin' : 'user';
-                    authStatus.textContent = `Conectado: ${user.email} (${userRole})`;
-                    
-                    if(userRole === 'admin') {
-                        adminControls.classList.remove('hidden');
-                        openReportBtn.classList.remove('hidden');
-                        // Show UID in footer for admins
-                        let footer = document.getElementById('admin-footer-uid');
-                        if(!footer) {
-                            footer = document.createElement('div');
-                            footer.id = 'admin-footer-uid';
-                            footer.className = 'fixed bottom-8 right-0 bg-black/50 text-white text-[10px] p-1 pointer-events-none z-50';
-                            document.body.appendChild(footer);
-                        }
-                        footer.textContent = `UID: ${user.uid}`;
-                    } else {
-                        adminControls.classList.add('hidden');
-                        openReportBtn.classList.add('hidden');
-                        const footer = document.getElementById('admin-footer-uid');
-                        if(footer) footer.remove();
+                db.ref(`/artifacts/${appId}/users/${user.uid}/role`).on('value', snap => {
+                    userRole = snap.val() === 'admin' ? 'admin' : 'user';
+                    document.getElementById('auth-status').textContent = `Usuário: ${user.email} | Nível: ${userRole.toUpperCase()}`;
+                    if (userRole === 'admin') {
+                        document.getElementById('admin-controls').classList.remove('hidden');
+                        document.getElementById('open-report-btn').classList.remove('hidden');
                     }
-                    initRealtimeListener();
+                    initDatabase();
                 });
             } else {
-                loginPage.classList.remove('hidden');
-                kanbanPage.classList.add('hidden');
-                appFooter.classList.add('hidden');
-                submitBtn.disabled = false;
+                document.getElementById('login-page').classList.remove('hidden');
+                document.getElementById('kanban-page').classList.add('hidden');
             }
         });
 
-        logoutBtn.addEventListener('click', () => {
-            if(dbTasksRef) dbTasksRef.off();
-            auth.signOut();
-        });
+        document.getElementById('auth-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            try { await auth.signInWithEmailAndPassword(email, password); } 
+            catch (err) { alert("Erro de Login: " + err.message); }
+        };
+
+        document.getElementById('logout-btn').onclick = () => auth.signOut();
 
         // --- DATABASE ---
-        function initRealtimeListener() {
+        function initDatabase() {
             if (dbTasksRef) dbTasksRef.off();
-            allTasks = {};
-            const path = `/artifacts/${appId}/public/data/motorMaintenance`;
-            
-            // Lógica: Admin vê tudo, User também vê tudo (comum em manutenção), ou pode restringir
-            dbTasksRef = db.ref(path);
-
-            const handle = (snap) => { if(snap.val()) { allTasks[snap.key] = { id: snap.key, ...snap.val() }; renderKanban(); } };
-            dbTasksRef.on('child_added', handle);
-            dbTasksRef.on('child_changed', handle);
-            dbTasksRef.on('child_removed', snap => { delete allTasks[snap.key]; renderKanban(); });
-            
-            renderKanban(); 
+            dbTasksRef = db.ref(`/artifacts/${appId}/public/data/motorMaintenance`);
+            dbTasksRef.on('value', snap => {
+                allTasks = snap.val() || {};
+                renderKanban();
+            });
         }
 
-        // --- RENDER KANBAN ---
         function renderKanban() {
-            ['col-1-list', 'col-2-list', 'col-3-list', 'col-4-list'].forEach(id => document.getElementById(id).innerHTML = '');
+            const lists = ['col-1-list', 'col-2-list', 'col-3-list', 'col-4-list'];
+            lists.forEach(id => document.getElementById(id).innerHTML = '');
             
-            let tasks = Object.values(allTasks);
+            let tasks = Object.entries(allTasks).map(([id, data]) => ({ id, ...data }));
             
-            if(currentSearchTerm) {
+            if (currentSearchTerm) {
                 const term = currentSearchTerm.toLowerCase();
-                tasks = tasks.filter(t => (t.motorDescricao && t.motorDescricao.toLowerCase().includes(term)) || (t.motorTag && t.motorTag.toLowerCase().includes(term)));
+                tasks = tasks.filter(t => (t.motorDescricao||'').toLowerCase().includes(term) || (t.motorTag||'').toLowerCase().includes(term));
             }
 
-            if(userRole === 'admin' && headerSortSelect.value === 'manual') {
-                tasks.sort((a, b) => (a.order || 999999) - (b.order || 999999));
-            } else if(userRole === 'admin' && headerSortSelect.value === 'priority') {
-                tasks.sort((a, b) => (a.adminPrioridade || 2) - (b.adminPrioridade || 2));
-            } else {
-                tasks.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
-            }
+            const counts = { col1: 0, col2: 0, col3: 0, col4: 0 };
 
-            const counts = { col1:0, col2:0, col3:0, col4:0 };
+            tasks.forEach(t => {
+                let colId = 'col-1-list';
+                if (t.status === 'reparo') colId = 'col-2-list';
+                else if (t.status === 'reparado') colId = 'col-3-list';
+                else if (t.status === 'descarte') colId = 'col-4-list';
 
-            tasks.forEach(task => {
-                let colId = '';
-                if (task.status === 'retirado') colId = 'col-1-list';
-                else if (task.status === 'reparo') colId = 'col-2-list';
-                else if (task.status === 'reparado') colId = 'col-3-list';
-                else if (task.status === 'descarte') colId = 'col-4-list';
-                
-                if(!colId) colId = 'col-1-list'; // Default fallback
-
-                const countKey = colId.replace('-list', '').replace('-', '');
-                counts[countKey]++;
-                document.getElementById(colId).appendChild(createCard(task));
+                const card = createCard(t);
+                document.getElementById(colId).appendChild(card);
+                counts[colId.replace('-list','').replace('-','')]++;
             });
 
             document.getElementById('count-col1').textContent = counts.col1;
             document.getElementById('count-col2').textContent = counts.col2;
             document.getElementById('count-col3').textContent = counts.col3;
             document.getElementById('count-col4').textContent = counts.col4;
-            
             initSortable();
         }
 
-        function createCard(task) {
+        function createCard(t) {
             const card = document.createElement('div');
-            const colors = { '1': 'border-red-500', '2': 'border-orange-400', '3': 'border-blue-400' };
-            card.className = `task-card bg-white p-3 rounded shadow-sm border-l-4 ${colors[task.adminPrioridade] || 'border-gray-300'} mb-3 cursor-pointer hover:shadow-md relative group`;
-            card.dataset.taskId = task.id;
-            
-            const isManual = (userRole === 'admin' && headerSortSelect.value === 'manual');
-            if(isManual) card.style.cursor = 'grab';
+            const prioColors = { '1': 'border-red-500', '2': 'border-orange-400', '3': 'border-blue-400' };
+            card.className = `bg-white p-3 rounded shadow-sm border-l-4 ${prioColors[t.adminPrioridade] || 'border-gray-200'} mb-2 cursor-pointer hover:shadow-md transition-shadow`;
+            card.dataset.taskId = t.id;
 
-            const date = task.createdAt ? new Date(task.createdAt).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : '--';
-            
-            const photoIcon = task.fotoUrl ? `<svg class="w-3 h-3 text-blue-500 ml-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>` : '';
-
-            const title = `${task.motorDescricao || 'Motor'} <span class="text-xs font-normal text-gray-500">(${task.motorTag || 'S/ Tag'})</span>`;
-            const sub1 = task.solicitanteArea;
-            
-            let sub2 = '';
-            if(task.status === 'reparo') {
-                const prevData = task.motorDataPrevista ? new Date(task.motorDataPrevista).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}) : '?';
-                sub2 = `<div class="mt-1 pt-1 border-t border-gray-100 flex flex-col text-[10px]">
-                    <span class="text-orange-600 font-bold truncate">🔧 ${task.motorFornecedor || 'Fornecedor n/d'}</span>
-                    <span class="text-gray-500">Volta: ${prevData}</span>
-                </div>`;
-            }
-            
-            // BOTÃO VER FOTO (Se existir URL)
-            let photoButton = '';
-            if (task.fotoUrl) {
-                photoButton = `
-                <div class="mt-2 text-right">
-                    <a href="${task.fotoUrl}" target="_blank" class="text-[10px] bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200 transition-colors font-bold inline-flex items-center gap-1">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                        Ver Foto
-                    </a>
-                </div>`;
-            }
+            const areaLabel = t.solicitanteSubArea ? `${t.solicitanteArea} - ${t.solicitanteSubArea}` : t.solicitanteArea;
 
             card.innerHTML = `
                 <div class="flex justify-between items-start mb-1">
-                    <span class="text-[10px] font-bold text-gray-400">#${task.order||'-'}</span>
-                    <span class="text-[10px] text-gray-400">${date}</span>
+                    <span class="text-[9px] font-black text-gray-400">TAG: ${t.motorTag || 'N/D'}</span>
+                    <span class="text-[9px] text-gray-400">${t.createdAt ? new Date(t.createdAt).toLocaleDateString() : ''}</span>
                 </div>
-                <h4 class="font-bold text-gray-800 text-sm mb-1 leading-tight">${DOMPurify.sanitize(title)} ${photoIcon}</h4>
-                <div class="flex flex-col">
-                    <span class="text-xs text-gray-500 truncate">${DOMPurify.sanitize(sub1)}</span>
-                    ${sub2}
+                <h4 class="font-bold text-sm text-gray-800 uppercase leading-tight truncate">${DOMPurify.sanitize(t.motorDescricao || 'Motor s/ descrição')}</h4>
+                <div class="text-[10px] text-gray-500 mt-1">
+                    <p class="font-semibold">${DOMPurify.sanitize(areaLabel)}</p>
+                    ${t.status === 'reparo' ? `<p class="text-orange-600 font-bold mt-1">🔧 ${t.motorFornecedor || '---'}</p>` : ''}
                 </div>
-                ${photoButton}
-                <button class="delete-task-btn hidden group-hover:block absolute bottom-2 right-2 text-gray-300 hover:text-red-500 bg-white rounded-full p-1 shadow-sm border border-gray-100" ${userRole !== 'admin' ? 'style="display:none"' : ''}>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                </button>
             `;
-
-            card.addEventListener('click', (e) => {
-                if(e.target.closest('.delete-task-btn') || e.target.closest('a')) return;
-                openTaskModal(userRole === 'admin' ? 'edit' : 'view', task.id);
-            });
-
-            const delBtn = card.querySelector('.delete-task-btn');
-            if(delBtn) delBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                taskToDeleteId = task.id;
-                deleteModalContent.classList.remove('scale-95', 'opacity-0');
-                deleteModalContent.classList.add('scale-100', 'opacity-100');
-                deleteModal.classList.remove('hidden');
-            });
-
+            card.onclick = () => openTaskModal('edit', t.id);
             return card;
         }
 
         // --- TASK MODAL ---
-        if(addTaskBtn) addTaskBtn.addEventListener('click', () => openTaskModal('add'));
-
-        // Preview da imagem via URL Input
-        pecaFotoUrl.addEventListener('input', function(e) {
-            const url = e.target.value;
-            if (url) {
-                modalImagePreview.src = url;
-                modalImagePreview.style.display = 'block';
-                imagePreviewContainer.classList.remove('hidden');
-            } else {
-                imagePreviewContainer.classList.add('hidden');
-            }
-        });
+        document.getElementById('add-task-btn').onclick = () => openTaskModal('add');
 
         function openTaskModal(mode, id = null) {
-            if(!currentUser) return showToast('Faça login', 'error');
-            taskForm.reset();
-            taskIdHidden.value = '';
-            
-            imagePreviewContainer.classList.add('hidden');
-            modalImagePreview.src = '';
-            
-            const inputs = taskForm.querySelectorAll('input, select, textarea, button[type=submit]');
-            inputs.forEach(el => el.disabled = false);
-            readonlyBanner.classList.add('hidden');
-            saveTaskBtn.classList.remove('hidden');
+            const form = document.getElementById('task-form');
+            form.reset();
+            document.getElementById('task-id-hidden').value = id || '';
+            document.getElementById('subarea-container').classList.add('hidden');
+            document.getElementById('modal-image-preview').src = '';
+            document.getElementById('image-preview-container').classList.add('hidden');
 
-            if(userRole === 'admin') adminFields.classList.remove('hidden');
-            else adminFields.classList.add('hidden');
-
-            if(mode === 'add') {
-                modalTitle.textContent = "Registrar Saída Motor";
-                solicitanteEmail.value = currentUser.email;
-                document.getElementById('admin-status').value = 'retirado';
+            if (mode === 'add') {
+                document.getElementById('modal-title').textContent = "Novo Registro de Motor";
+                document.getElementById('solicitante-email').value = currentUser.email;
+                document.getElementById('admin-fields').classList.add('hidden');
             } else {
                 const t = allTasks[id];
-                if(!t) return;
-                taskIdHidden.value = id;
-                modalTitle.textContent = "Detalhes do Motor";
-                
+                document.getElementById('modal-title').textContent = "Editar Motor";
                 document.getElementById('solicitante-nome').value = t.solicitanteNome;
                 document.getElementById('solicitante-matricula').value = t.solicitanteMatricula;
                 document.getElementById('solicitante-area').value = t.solicitanteArea;
-                document.getElementById('solicitante-email').value = t.solicitanteEmail;
-                motorObs.value = t.motorObs || '';
                 
-                if(t.fotoUrl) {
-                    pecaFotoUrl.value = t.fotoUrl;
-                    modalImagePreview.src = t.fotoUrl;
-                    modalImagePreview.style.display = 'block';
-                    imagePreviewContainer.classList.remove('hidden');
-                }
+                // Forçar trigger da subárea
+                areaSelect.dispatchEvent(new Event('change'));
+                if (t.solicitanteSubArea) document.getElementById('solicitante-subarea').value = t.solicitanteSubArea;
 
+                document.getElementById('solicitante-email').value = t.solicitanteEmail;
                 document.getElementById('motor-descricao').value = t.motorDescricao || '';
                 document.getElementById('motor-tag').value = t.motorTag || '';
                 document.getElementById('motor-potencia').value = t.motorPotencia || '';
                 document.getElementById('motor-fornecedor').value = t.motorFornecedor || '';
                 document.getElementById('motor-data-prevista').value = t.motorDataPrevista || '';
+                document.getElementById('motor-obs').value = t.motorObs || '';
+                document.getElementById('peca-foto-url').value = t.fotoUrl || '';
 
-                if(userRole === 'admin') {
-                    document.getElementById('admin-prioridade').value = t.adminPrioridade || '2';
-                    document.getElementById('admin-order').value = t.order || '';
-                    document.getElementById('admin-status').value = t.status || 'retirado';
-                }
-
-                if(mode === 'view') {
-                    inputs.forEach(el => el.disabled = true);
-                    closeModalBtn.disabled = false;
-                    cancelModalBtn.disabled = false;
-                    saveTaskBtn.classList.add('hidden');
-                    readonlyBanner.classList.remove('hidden');
+                if (userRole === 'admin') {
+                    document.getElementById('admin-fields').classList.remove('hidden');
+                    document.getElementById('admin-status').value = t.status;
+                    document.getElementById('admin-prioridade').value = t.adminPrioridade;
                 }
             }
-            taskModalContent.classList.remove('scale-95', 'opacity-0');
-            taskModalContent.classList.add('scale-100', 'opacity-100');
-            taskModal.classList.remove('hidden');
+            document.getElementById('task-modal').classList.remove('hidden');
         }
 
-        taskForm.addEventListener('submit', async (e) => {
+        document.getElementById('task-form').onsubmit = async (e) => {
             e.preventDefault();
-            
-            const obsVal = motorObs.value.trim();
-            const urlVal = pecaFotoUrl.value.trim();
-            
-            if (obsVal === '' && urlVal === '') {
-                alert("ATENÇÃO: É obrigatório descrever o defeito OU colar o Link da Foto.");
-                return;
-            }
-
-            saveTaskBtn.disabled = true;
-            saveTaskBtn.textContent = "Processando...";
-
-            const id = taskIdHidden.value;
+            const id = document.getElementById('task-id-hidden').value;
             const data = {
                 solicitanteNome: document.getElementById('solicitante-nome').value,
                 solicitanteMatricula: document.getElementById('solicitante-matricula').value,
                 solicitanteArea: document.getElementById('solicitante-area').value,
+                solicitanteSubArea: document.getElementById('solicitante-subarea').value || '',
                 solicitanteEmail: document.getElementById('solicitante-email').value,
-                motorObs: obsVal,
                 motorDescricao: document.getElementById('motor-descricao').value,
                 motorTag: document.getElementById('motor-tag').value,
                 motorPotencia: document.getElementById('motor-potencia').value,
                 motorFornecedor: document.getElementById('motor-fornecedor').value,
                 motorDataPrevista: document.getElementById('motor-data-prevista').value,
-                fotoUrl: urlVal // Salva a URL diretamente
+                motorObs: document.getElementById('motor-obs').value,
+                fotoUrl: document.getElementById('peca-foto-url').value,
+                updatedAt: firebase.database.ServerValue.TIMESTAMP
             };
 
-            // Validação de Fornecedor ao Mover para Reparo
-            const status = userRole === 'admin' ? document.getElementById('admin-status').value : 'retirado';
-            if(status === 'reparo' && (!data.motorFornecedor || !data.motorDataPrevista)) {
-                alert("Para status 'Em Reparo', informe o Fornecedor e Data Prevista.");
-                saveTaskBtn.disabled = false;
-                saveTaskBtn.textContent = "Confirmar";
-                return;
-            }
-
-            if(userRole === 'admin') {
-                data.adminPrioridade = document.getElementById('admin-prioridade').value;
-                const ord = document.getElementById('admin-order').value;
-                if(ord) data.order = parseInt(ord);
+            if (userRole === 'admin') {
                 data.status = document.getElementById('admin-status').value;
+                data.adminPrioridade = document.getElementById('admin-prioridade').value;
             } else if (!id) {
                 data.status = 'retirado';
+                data.adminPrioridade = '2';
+                data.createdAt = firebase.database.ServerValue.TIMESTAMP;
             }
 
             try {
-                saveTaskBtn.textContent = "Salvando...";
-                const dbPath = `/artifacts/${appId}/public/data/motorMaintenance`;
+                if (id) await db.ref(`/artifacts/${appId}/public/data/motorMaintenance/${id}`).update(data);
+                else await db.ref(`/artifacts/${appId}/public/data/motorMaintenance`).push(data);
+                showToast("Registro salvo com sucesso!");
+                document.getElementById('task-modal').classList.add('hidden');
+            } catch (err) { alert("Erro ao salvar: " + err.message); }
+        };
 
-                if(id) {
-                    await db.ref(`${dbPath}/${id}`).update(data);
-                    showToast("Atualizado!");
-                } else {
-                    data.createdAt = firebase.database.ServerValue.TIMESTAMP;
-                    data.createdBy = userUid;
-                    data.adminPrioridade = '2';
-                    data.order = Date.now();
-                    await db.ref(dbPath).push(data);
-                    showToast("Motor registrado com sucesso!");
-                }
-                taskModal.classList.add('hidden');
-            } catch (err) {
-                alert("Erro: " + err.message);
-            } finally {
-                saveTaskBtn.disabled = false;
-                saveTaskBtn.textContent = "Confirmar";
-            }
-        });
+        document.getElementById('cancel-modal-btn').onclick = () => document.getElementById('task-modal').classList.add('hidden');
+        document.getElementById('close-modal-btn').onclick = () => document.getElementById('task-modal').classList.add('hidden');
 
-        closeModalBtn.addEventListener('click', () => taskModal.classList.add('hidden'));
-        cancelModalBtn.addEventListener('click', () => taskModal.classList.add('hidden'));
+        // --- RELATÓRIO ---
+        document.getElementById('open-report-btn').onclick = () => {
+            const tbody = document.getElementById('report-table-body');
+            tbody.innerHTML = '';
+            const tasks = Object.values(allTasks);
+            
+            tasks.forEach(t => {
+                const tr = document.createElement('tr');
+                const area = t.solicitanteSubArea ? `${t.solicitanteArea} (${t.solicitanteSubArea})` : t.solicitanteArea;
+                tr.innerHTML = `
+                    <td class="px-3 py-2 border-b">${t.createdAt ? new Date(t.createdAt).toLocaleDateString() : '-'}</td>
+                    <td class="px-3 py-2 border-b font-bold">${t.motorDescricao}<br><span class="text-[10px] text-gray-400">TAG: ${t.motorTag||'N/D'}</span></td>
+                    <td class="px-3 py-2 border-b">${area}</td>
+                    <td class="px-3 py-2 border-b">${t.motorFornecedor || '-'}</td>
+                    <td class="px-3 py-2 border-b text-center font-black uppercase text-[10px]">${t.status}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+            
+            document.getElementById('report-total-count').textContent = tasks.length;
+            document.getElementById('report-removed-count').textContent = tasks.filter(x => x.status === 'retirado').length;
+            document.getElementById('report-repair-count').textContent = tasks.filter(x => x.status === 'reparo').length;
+            document.getElementById('report-done-count').textContent = tasks.filter(x => x.status === 'reparado').length;
+            document.getElementById('report-modal').classList.remove('hidden');
+        };
 
-        // --- EXCLUSÃO DE PEDIDO ---
-        confirmDeleteBtn.addEventListener('click', async () => {
-            if(taskToDeleteId) {
-                confirmDeleteBtn.disabled = true;
-                confirmDeleteBtn.textContent = "...";
-                
-                try {
-                    await db.ref(`/artifacts/${appId}/public/data/motorMaintenance/${taskToDeleteId}`).remove();
-                    showToast("Registro excluído.");
-                    deleteModal.classList.add('hidden');
-                    taskToDeleteId = null;
-                } catch (error) {
-                    showToast("Erro: " + error.message, 'error');
-                } finally {
-                    confirmDeleteBtn.disabled = false;
-                    confirmDeleteBtn.textContent = "Excluir";
-                }
-            }
-        });
+        document.getElementById('close-report-btn').onclick = () => document.getElementById('report-modal').classList.add('hidden');
 
-        cancelDeleteBtn.addEventListener('click', () => {
-            deleteModal.classList.add('hidden');
-            taskToDeleteId = null;
-        });
-
-        // --- SORTABLE ---
+        // --- SORTABLE (ADMIN) ---
         function initSortable() {
             sortables.forEach(s => s.destroy());
             sortables = [];
+            if (userRole !== 'admin') return;
             ['col-1-list', 'col-2-list', 'col-3-list', 'col-4-list'].forEach(id => {
                 const el = document.getElementById(id);
-                if(!el) return;
-                const s = new Sortable(el, {
+                sortables.push(new Sortable(el, {
                     group: 'kanban',
-                    animation: 200,
-                    disabled: !(userRole === 'admin' && headerSortSelect.value === 'manual'),
+                    animation: 150,
                     onEnd: async (evt) => {
-                        const taskId = evt.item.dataset.taskId;
-                        const newCol = evt.to.dataset.columnId;
-                        
-                        let newStatus = newCol; // id da coluna já é o status
-                        
-                        if(evt.from.dataset.columnId !== newStatus) {
-                            const updates = { status: newStatus };
-                            const dbPath = `/artifacts/${appId}/public/data/motorMaintenance`;
-                            await db.ref(`${dbPath}/${taskId}`).update(updates);
+                        if (evt.from !== evt.to) {
+                            const taskId = evt.item.dataset.taskId;
+                            const newStatus = evt.to.dataset.columnId;
+                            await db.ref(`/artifacts/${appId}/public/data/motorMaintenance/${taskId}`).update({ status: newStatus });
                         }
                     }
-                });
-                sortables.push(s);
+                }));
             });
         }
 
-        headerSortSelect.addEventListener('change', () => { renderKanban(); initSortable(); });
-        searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; renderKanban(); });
+        document.getElementById('search-input').oninput = (e) => {
+            currentSearchTerm = e.target.value;
+            renderKanban();
+        };
     });
     </script>
 </body>
