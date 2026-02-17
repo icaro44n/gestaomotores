@@ -36,7 +36,6 @@
     <style>
         body { 
             background-color: #f0f2f5; 
-            /* Previne o pull-to-refresh no mobile que atrapalha o drag and drop */
             overscroll-behavior-y: none;
         }
 
@@ -55,7 +54,6 @@
             transform: rotate(2deg);
         }
 
-        /* Scrollbar personalizada */
         .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scroll::-webkit-scrollbar-track { background: transparent; }
         .custom-scroll::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 3px; }
@@ -74,14 +72,12 @@
             }
         }
 
-        /* Animação do Toast */
         @keyframes slideInRight {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
         .toast-enter { animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 
-        /* Estilos de Impressão */
         @media print {
             body * { visibility: hidden; }
             #report-content-container, #report-content-container * { visibility: visible; }
@@ -191,6 +187,12 @@
                         </div>
 
                         <div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
+                            <!-- Botão de Gestão de Usuários (Apenas Admin) -->
+                            <button id="open-users-btn" class="hidden whitespace-nowrap px-3 py-2 bg-blue-600/80 hover:bg-blue-600 text-white text-xs font-bold rounded transition-colors uppercase flex items-center gap-2 border border-blue-500/30">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                Usuários
+                            </button>
+
                             <button id="open-report-btn" class="hidden whitespace-nowrap px-3 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded hover:shadow transition-all uppercase flex items-center gap-2 border border-white/10">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                 Relatório
@@ -296,7 +298,7 @@
             </div>
 
             <div class="p-8 bg-white space-y-8" id="report-printable-area">
-                <!-- Cabeçalho Impressão -->
+                <!-- Conteúdo do Relatório (Inalterado) -->
                 <div class="flex justify-between items-end border-b-4 border-heineken-green pb-4 mb-6">
                     <div>
                         <h1 class="text-4xl font-black text-gray-900 uppercase tracking-tighter">HEINEKEN</h1>
@@ -308,7 +310,6 @@
                     </div>
                 </div>
 
-                <!-- KPIs -->
                 <div class="grid grid-cols-4 gap-4 mb-8">
                     <div class="border border-gray-200 p-4 rounded-lg bg-gray-50 text-center">
                         <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">Total Ativos</p>
@@ -328,7 +329,6 @@
                     </div>
                 </div>
 
-                <!-- Tabela -->
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
@@ -341,14 +341,47 @@
                                 <th class="py-2 text-xs font-black uppercase text-gray-600 text-right">Status</th>
                             </tr>
                         </thead>
-                        <tbody id="report-table-body" class="divide-y divide-gray-200 text-sm">
-                            <!-- Inserido via JS -->
-                        </tbody>
+                        <tbody id="report-table-body" class="divide-y divide-gray-200 text-sm"></tbody>
                     </table>
                 </div>
                 
                 <div class="mt-8 pt-4 border-t border-gray-200 text-center">
                     <p class="text-[10px] text-gray-400 uppercase font-medium">Documento gerado eletronicamente pelo Sistema de Gestão de Motores</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL GESTÃO DE USUÁRIOS (NOVO) -->
+    <div id="users-modal" class="fixed inset-0 bg-black/70 z-[85] backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full flex flex-col max-h-[85vh] overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                <h4 class="text-lg font-black text-gray-800 uppercase tracking-tight flex items-center gap-2">
+                    <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
+                    Gestão de Usuários
+                </h4>
+                <button type="button" id="close-users-btn" class="text-gray-400 hover:text-gray-600 transition-colors bg-gray-200 hover:bg-gray-300 rounded-full p-1.5">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto custom-scroll flex-1 bg-gray-50">
+                <p class="text-sm text-gray-500 mb-4 bg-blue-50 border border-blue-200 p-3 rounded-lg">
+                    <span class="font-bold text-blue-800">Atenção Admin:</span> Abaixo estão listados todos os usuários cadastrados. Você pode alterar o nível de acesso de cada um.
+                </p>
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="py-3 px-4 text-xs font-bold uppercase text-gray-600 border-b">Email / Usuário</th>
+                                <th class="py-3 px-4 text-xs font-bold uppercase text-gray-600 border-b">Data Cadastro</th>
+                                <th class="py-3 px-4 text-xs font-bold uppercase text-gray-600 border-b text-center">Nível Atual</th>
+                                <th class="py-3 px-4 text-xs font-bold uppercase text-gray-600 border-b text-right">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body" class="divide-y divide-gray-100 text-sm">
+                            <!-- Inserido via JS -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -494,16 +527,16 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- FIREBASE CONFIGURATION ---
+            // --- FIREBASE CONFIGURATION (motores-fb74f) ---
             const firebaseConfig = {
-                apiKey: "AIzaSyDvAcCedeELaoqybw64-DqZboSvtZqjH04",
-                authDomain: "lojinic-99d2e.firebaseapp.com",
-                databaseURL: "https://lojinic-99d2e-default-rtdb.firebaseio.com",
-                projectId: "lojinic-99d2e",
-                storageBucket: "lojinic-99d2e.firebasestorage.app",
-                messagingSenderId: "170010365264",
-                appId: "1:170010365264:web:94e1b369cd38ab9ed2b055",
-                measurementId: "G-0WY10W9CLN"
+                apiKey: "AIzaSyDwNE-hmhydTBFrFu7lhSiRL4rzmBpfxxc",
+                authDomain: "motores-fb74f.firebaseapp.com",
+                databaseURL: "https://motores-fb74f-default-rtdb.firebaseio.com",
+                projectId: "motores-fb74f",
+                storageBucket: "motores-fb74f.firebasestorage.app",
+                messagingSenderId: "43172769298",
+                appId: "1:43172769298:web:c058c3026871132131f2cb",
+                measurementId: "G-9F0FN8334M"
             };
 
             // Initialize Firebase
@@ -511,7 +544,6 @@
             const auth = firebase.auth();
             const db = firebase.database();
             const analytics = firebase.analytics(); // Analytics ativado
-            const appId = firebaseConfig.projectId;
 
             // State
             let currentUser = null;
@@ -528,6 +560,7 @@
             const kanbanPage = document.getElementById('kanban-page');
             const reportModal = document.getElementById('report-modal');
             const taskModal = document.getElementById('task-modal');
+            const usersModal = document.getElementById('users-modal');
             const toastContainer = document.getElementById('toast-container');
             const areaSelect = document.getElementById('solicitante-area');
             const subareaContainer = document.getElementById('subarea-container');
@@ -605,29 +638,29 @@
                     loginPage.classList.add('hidden');
                     kanbanPage.classList.remove('hidden');
                     
-                    // Checar Role do Usuário
-                    // Modificado para estrutura raiz /users
+                    // Checar Role do Usuário (na raiz /users)
                     db.ref(`/users/${user.uid}`).on('value', snap => {
                         const val = snap.val();
-                        // Se val for string, é o role antigo. Se for objeto, pega a propriedade role.
                         let roleValue = 'user';
-                        if (typeof val === 'string') {
-                             roleValue = val;
-                        } else if (val && val.role) {
-                             roleValue = val.role;
-                        }
+                        if (typeof val === 'string') { roleValue = val; } 
+                        else if (val && val.role) { roleValue = val.role; }
 
                         userRole = (roleValue === 'admin') ? 'admin' : 'user';
                         
-                        // Atualiza UI com nome e ID
                         const displayName = user.email.split('@')[0];
                         const roleDisplay = userRole.toUpperCase();
                         document.getElementById('user-display-name').textContent = `${displayName} (${roleDisplay})`;
                         document.getElementById('user-display-name').title = `ID: ${user.uid} (Clique para copiar)`;
                         
+                        // Controles de Admin
                         if (userRole === 'admin') {
                             document.getElementById('admin-fields').classList.remove('hidden');
                             document.getElementById('open-report-btn').classList.remove('hidden');
+                            document.getElementById('open-users-btn').classList.remove('hidden'); // Botão de Usuários
+                        } else {
+                            document.getElementById('admin-fields').classList.add('hidden');
+                            document.getElementById('open-report-btn').classList.add('hidden');
+                            document.getElementById('open-users-btn').classList.add('hidden');
                         }
                         
                         initKanbanBoard();
@@ -641,7 +674,6 @@
                 }
             });
             
-            // Feature extra: Copiar UID ao clicar no nome
             document.getElementById('user-info-container').onclick = () => {
                 if(currentUser) {
                     navigator.clipboard.writeText(currentUser.uid).then(() => {
@@ -666,14 +698,12 @@
                         await auth.signInWithEmailAndPassword(email, password);
                     } else {
                         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                        
-                        // --- ESTRUTURA RAIZ: /users ---
+                        // Cria usuário na raiz /users
                         await db.ref(`/users/${userCredential.user.uid}`).set({
                             role: 'user',
                             email: email,
                             createdAt: firebase.database.ServerValue.TIMESTAMP
                         });
-                        
                         showToast("Conta criada com sucesso! Bem-vindo.");
                     }
                 } catch (err) {
@@ -689,6 +719,72 @@
             document.getElementById('logout-btn').onclick = () => {
                 auth.signOut();
                 window.location.reload();
+            };
+
+            // --- GESTÃO DE USUÁRIOS (NOVO) ---
+            document.getElementById('open-users-btn').onclick = () => {
+                if(userRole !== 'admin') return;
+                
+                usersModal.classList.remove('hidden');
+                const tbody = document.getElementById('users-table-body');
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center py-4 text-gray-400">Carregando usuários...</td></tr>';
+
+                db.ref('/users').once('value').then(snap => {
+                    tbody.innerHTML = '';
+                    const users = snap.val() || {};
+                    
+                    Object.entries(users).forEach(([uid, userData]) => {
+                        const isMe = (uid === currentUser.uid);
+                        const role = userData.role || 'user';
+                        const email = userData.email || 'Email desconhecido';
+                        const date = userData.createdAt ? new Date(userData.createdAt).toLocaleDateString('pt-BR') : '-';
+                        
+                        const tr = document.createElement('tr');
+                        tr.className = 'hover:bg-gray-50 transition-colors';
+                        
+                        // Badge de Role
+                        const roleBadge = role === 'admin' 
+                            ? `<span class="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs font-bold uppercase border border-purple-200">ADMIN</span>`
+                            : `<span class="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-bold uppercase border border-gray-200">USER</span>`;
+
+                        // Botão de Ação
+                        let actionBtn = '';
+                        if (!isMe) {
+                            if (role === 'user') {
+                                actionBtn = `<button class="text-xs bg-green-100 text-green-700 hover:bg-green-200 px-3 py-1 rounded font-bold transition-colors" onclick="window.changeUserRole('${uid}', 'admin')">Promover a Admin</button>`;
+                            } else {
+                                actionBtn = `<button class="text-xs bg-red-100 text-red-700 hover:bg-red-200 px-3 py-1 rounded font-bold transition-colors" onclick="window.changeUserRole('${uid}', 'user')">Rebaixar a User</button>`;
+                            }
+                        } else {
+                             actionBtn = `<span class="text-xs text-gray-400 italic">Você</span>`;
+                        }
+
+                        tr.innerHTML = `
+                            <td class="py-3 px-4 border-b border-gray-100 font-medium text-gray-800">${email}</td>
+                            <td class="py-3 px-4 border-b border-gray-100 text-gray-500">${date}</td>
+                            <td class="py-3 px-4 border-b border-gray-100 text-center">${roleBadge}</td>
+                            <td class="py-3 px-4 border-b border-gray-100 text-right">${actionBtn}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                });
+            };
+
+            document.getElementById('close-users-btn').onclick = () => usersModal.classList.add('hidden');
+
+            // Função Global para mudar role (acessível pelo onclick inline)
+            window.changeUserRole = async (targetUid, newRole) => {
+                if(userRole !== 'admin') return;
+                if(!confirm(`Tem certeza que deseja mudar o nível deste usuário para ${newRole.toUpperCase()}?`)) return;
+
+                try {
+                    await db.ref(`/users/${targetUid}`).update({ role: newRole });
+                    showToast(`Usuário atualizado para ${newRole.toUpperCase()}`);
+                    // Recarrega a lista
+                    document.getElementById('open-users-btn').click();
+                } catch(err) {
+                    showToast('Erro ao atualizar: ' + err.message, 'error');
+                }
             };
 
             // --- KANBAN LOGIC ---
@@ -711,11 +807,9 @@
                     descarte: document.getElementById('col-4-list')
                 };
                 
-                // Limpar colunas
                 Object.values(columns).forEach(col => col.innerHTML = '');
                 const counts = { retirado: 0, reparo: 0, reparado: 0, descarte: 0 };
 
-                // Filtrar e Ordenar
                 let tasks = Object.entries(allTasks).map(([id, data]) => ({ id, ...data }));
                 
                 if (currentSearchTerm) {
@@ -727,7 +821,6 @@
                     );
                 }
 
-                // Renderizar
                 tasks.forEach(task => {
                     const status = task.status || 'retirado';
                     if (columns[status]) {
@@ -736,7 +829,6 @@
                     }
                 });
 
-                // Atualizar contadores
                 document.getElementById('count-col1').innerText = counts.retirado;
                 document.getElementById('count-col2').innerText = counts.reparo;
                 document.getElementById('count-col3').innerText = counts.reparado;
@@ -749,7 +841,6 @@
                 const el = document.createElement('div');
                 const areaLabel = task.solicitanteSubArea ? `${task.solicitanteArea} • ${task.solicitanteSubArea}` : task.solicitanteArea;
                 
-                // Cores de prioridade
                 let borderClass = 'border-l-4 border-gray-300';
                 if (task.adminPrioridade === '1') borderClass = 'border-l-4 border-red-500 bg-red-50/50';
                 else if (task.adminPrioridade === '2') borderClass = 'border-l-4 border-yellow-400';
@@ -780,7 +871,6 @@
             }
 
             function setupDragAndDrop() {
-                // Limpar instancias antigas
                 sortableInstances.forEach(s => s.destroy());
                 sortableInstances = [];
 
@@ -791,11 +881,11 @@
                     if (!el) return;
                     
                     const sortable = new Sortable(el, {
-                        group: 'kanban', // Permite arrastar entre listas
+                        group: 'kanban',
                         animation: 200,
                         ghostClass: 'sortable-ghost',
                         dragClass: 'sortable-drag',
-                        delay: 100, // Previne arrasto acidental no mobile
+                        delay: 100,
                         delayOnTouchOnly: true,
                         onEnd: function (evt) {
                             const itemEl = evt.item;
@@ -804,21 +894,14 @@
                             const taskId = itemEl.dataset.id;
 
                             if (newStatus !== oldStatus) {
-                                // Update Firebase
-                                // --- ESTRUTURA RAIZ: /motores ---
                                 db.ref(`/motores/${taskId}`).update({ 
                                     status: newStatus,
                                     updatedAt: firebase.database.ServerValue.TIMESTAMP
                                 }).then(() => {
                                     showToast('Status atualizado!');
-                                    // Log Analytics
-                                    firebase.analytics().logEvent('task_moved', { 
-                                        task_id: taskId, 
-                                        new_status: newStatus 
-                                    });
+                                    firebase.analytics().logEvent('task_moved', { task_id: taskId, new_status: newStatus });
                                 }).catch(err => {
                                     showToast('Erro ao mover: ' + err.message, 'error');
-                                    // Reverter visualmente se falhar (opcional, mas o on('value') vai corrigir)
                                 });
                             }
                         }
@@ -854,13 +937,11 @@
                     const t = allTasks[id];
                     if (!t) return;
 
-                    // Preencher campos
                     document.getElementById('solicitante-nome').value = t.solicitanteNome;
                     document.getElementById('solicitante-matricula').value = t.solicitanteMatricula;
                     document.getElementById('solicitante-email').value = t.solicitanteEmail;
                     document.getElementById('solicitante-area').value = t.solicitanteArea;
                     
-                    // Trigger mudança de area para carregar subareas
                     areaSelect.dispatchEvent(new Event('change'));
                     if (t.solicitanteSubArea) document.getElementById('solicitante-subarea').value = t.solicitanteSubArea;
 
@@ -907,18 +988,15 @@
                     payload.status = document.getElementById('admin-status').value;
                     payload.adminPrioridade = document.getElementById('admin-prioridade').value;
                 } else if (!id) {
-                    // Defaults para criação
                     payload.status = 'retirado';
-                    payload.adminPrioridade = '3'; // Normal
+                    payload.adminPrioridade = '3';
                     payload.createdAt = firebase.database.ServerValue.TIMESTAMP;
                 }
 
                 try {
                     if (id) {
-                        // --- ESTRUTURA RAIZ: /motores ---
                         await db.ref(`/motores/${id}`).update(payload);
                     } else {
-                        // --- ESTRUTURA RAIZ: /motores ---
                         await db.ref(`/motores`).push(payload);
                         firebase.analytics().logEvent('create_task', { area: payload.solicitanteArea });
                     }
