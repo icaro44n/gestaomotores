@@ -175,7 +175,7 @@
                         </div>
                         <div class="leading-tight">
                             <h1 class="text-lg font-black uppercase tracking-tighter">Manutenção <span class="text-green-300">Motores</span></h1>
-                            <div class="flex items-center gap-2 text-[10px] font-medium text-green-100 uppercase tracking-widest">
+                            <div class="flex items-center gap-2 text-[10px] font-medium text-green-100 uppercase tracking-widest cursor-pointer" title="Clique para copiar ID do Usuário" id="user-info-container">
                                 <span>Controle de Ativos</span>
                                 <span class="w-1 h-1 bg-green-300 rounded-full"></span>
                                 <span id="user-display-name">...</span>
@@ -606,10 +606,24 @@
                     kanbanPage.classList.remove('hidden');
                     
                     // Checar Role do Usuário
-                    db.ref(`/artifacts/${appId}/users/${user.uid}/role`).on('value', snap => {
+                    // Modificado para suportar estrutura antiga (string) e nova (objeto)
+                    db.ref(`/artifacts/${appId}/users/${user.uid}`).on('value', snap => {
                         const val = snap.val();
-                        userRole = (val === 'admin') ? 'admin' : 'user';
-                        document.getElementById('user-display-name').textContent = `${user.email.split('@')[0]} (${userRole.toUpperCase()})`;
+                        // Se val for string, é o role antigo. Se for objeto, pega a propriedade role.
+                        let roleValue = 'user';
+                        if (typeof val === 'string') {
+                             roleValue = val;
+                        } else if (val && val.role) {
+                             roleValue = val.role;
+                        }
+
+                        userRole = (roleValue === 'admin') ? 'admin' : 'user';
+                        
+                        // Atualiza UI com nome e ID
+                        const displayName = user.email.split('@')[0];
+                        const roleDisplay = userRole.toUpperCase();
+                        document.getElementById('user-display-name').textContent = `${displayName} (${roleDisplay})`;
+                        document.getElementById('user-display-name').title = `ID: ${user.uid} (Clique para copiar)`;
                         
                         if (userRole === 'admin') {
                             document.getElementById('admin-fields').classList.remove('hidden');
@@ -626,6 +640,15 @@
                     kanbanPage.classList.add('hidden');
                 }
             });
+            
+            // Feature extra: Copiar UID ao clicar no nome
+            document.getElementById('user-info-container').onclick = () => {
+                if(currentUser) {
+                    navigator.clipboard.writeText(currentUser.uid).then(() => {
+                        showToast(`ID copiado: ${currentUser.uid}`);
+                    });
+                }
+            };
 
             document.getElementById('auth-form').onsubmit = async (e) => {
                 e.preventDefault();
@@ -643,8 +666,15 @@
                         await auth.signInWithEmailAndPassword(email, password);
                     } else {
                         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                        // Define role padrão 'user' para novo usuário
-                        await db.ref(`/artifacts/${appId}/users/${userCredential.user.uid}/role`).set('user');
+                        
+                        // --- AQUI ESTÁ A MUDANÇA PRINCIPAL PARA ORGANIZAR O BANCO ---
+                        // Agora salvamos o EMAIL junto com o ROLE para facilitar identificação no console
+                        await db.ref(`/artifacts/${appId}/users/${userCredential.user.uid}`).set({
+                            role: 'user',
+                            email: email,
+                            createdAt: firebase.database.ServerValue.TIMESTAMP
+                        });
+                        
                         showToast("Conta criada com sucesso! Bem-vindo.");
                     }
                 } catch (err) {
