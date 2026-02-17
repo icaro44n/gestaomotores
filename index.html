@@ -606,8 +606,8 @@
                     kanbanPage.classList.remove('hidden');
                     
                     // Checar Role do Usuário
-                    // Modificado para suportar estrutura antiga (string) e nova (objeto)
-                    db.ref(`/artifacts/${appId}/users/${user.uid}`).on('value', snap => {
+                    // Modificado para estrutura raiz /users
+                    db.ref(`/users/${user.uid}`).on('value', snap => {
                         const val = snap.val();
                         // Se val for string, é o role antigo. Se for objeto, pega a propriedade role.
                         let roleValue = 'user';
@@ -667,9 +667,8 @@
                     } else {
                         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                         
-                        // --- AQUI ESTÁ A MUDANÇA PRINCIPAL PARA ORGANIZAR O BANCO ---
-                        // Agora salvamos o EMAIL junto com o ROLE para facilitar identificação no console
-                        await db.ref(`/artifacts/${appId}/users/${userCredential.user.uid}`).set({
+                        // --- ESTRUTURA RAIZ: /users ---
+                        await db.ref(`/users/${userCredential.user.uid}`).set({
                             role: 'user',
                             email: email,
                             createdAt: firebase.database.ServerValue.TIMESTAMP
@@ -696,7 +695,8 @@
             function initKanbanBoard() {
                 if (dbTasksRef) dbTasksRef.off();
                 
-                dbTasksRef = db.ref(`/artifacts/${appId}/public/data/motorMaintenance`);
+                // --- ESTRUTURA RAIZ: /motores ---
+                dbTasksRef = db.ref(`/motores`);
                 dbTasksRef.on('value', snap => {
                     allTasks = snap.val() || {};
                     renderBoard();
@@ -805,7 +805,8 @@
 
                             if (newStatus !== oldStatus) {
                                 // Update Firebase
-                                db.ref(`/artifacts/${appId}/public/data/motorMaintenance/${taskId}`).update({ 
+                                // --- ESTRUTURA RAIZ: /motores ---
+                                db.ref(`/motores/${taskId}`).update({ 
                                     status: newStatus,
                                     updatedAt: firebase.database.ServerValue.TIMESTAMP
                                 }).then(() => {
@@ -914,9 +915,11 @@
 
                 try {
                     if (id) {
-                        await db.ref(`/artifacts/${appId}/public/data/motorMaintenance/${id}`).update(payload);
+                        // --- ESTRUTURA RAIZ: /motores ---
+                        await db.ref(`/motores/${id}`).update(payload);
                     } else {
-                        await db.ref(`/artifacts/${appId}/public/data/motorMaintenance`).push(payload);
+                        // --- ESTRUTURA RAIZ: /motores ---
+                        await db.ref(`/motores`).push(payload);
                         firebase.analytics().logEvent('create_task', { area: payload.solicitanteArea });
                     }
                     showToast('Salvo com sucesso!');
